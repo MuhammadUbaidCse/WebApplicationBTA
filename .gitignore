@@ -1,0 +1,18 @@
+# Dependencies and generated build output
+**/node_modules/
+frontend/dist/
+**/coverage/
+**/typechain-types/
+
+# Local environment configuration; keep example templates
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Hardhat generated files
+blockchain/artifacts/
+blockchain/cache/
+
+# This workspace contains an older nested duplicate of the project.
+BTA PBL/
