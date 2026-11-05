@@ -5,7 +5,9 @@ on:
     branches: [main]
     paths:
       - "frontend/**"
-      - ".github/workflows/deploy-pages.yml"
+      - "blockchain/**"
+      - "README.md"
+      - ".github/workflows/**"
   workflow_dispatch:
 
 permissions:
