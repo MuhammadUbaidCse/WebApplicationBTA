@@ -3,15 +3,17 @@
   "version": "1.0.0",
   "description": "Hardhat project for CS-491 University Certificate Verification System",
   "scripts": {
-    "compile":   "hardhat compile",
-    "test":      "hardhat test",
-    "coverage":  "hardhat coverage",
-    "node":      "hardhat node",
-    "deploy":    "hardhat run scripts/deploy.js --network localhost",
-    "deploy:hardhat": "hardhat run scripts/deploy.js"
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "coverage": "hardhat coverage",
+    "node": "hardhat node",
+    "deploy": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:hardhat": "hardhat run scripts/deploy.js",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "dotenv": "^18.0.9",
     "hardhat": "^2.22.0"
   }
 }

@@ -252,18 +252,24 @@ blockchain is not configured; local development remains unchanged.
 1. Create a GitHub repository and push this project to its `main` branch.
 2. In the repository, open **Settings → Pages** and choose **GitHub Actions** as the build and deployment source.
 3. The included `.github/workflows/deploy-pages.yml` builds the frontend and publishes it on pushes to `main`.
-4. To enable blockchain functionality, first deploy `CertificateRegistry.sol` to a public EVM network. Then add these **Actions variables** under **Settings → Secrets and variables → Actions → Variables**:
-   - `VITE_CONTRACT_ADDRESS` — deployed contract address
-   - `VITE_NETWORK_CHAIN_ID` — chain ID as a decimal number
-   - `VITE_NETWORK_NAME` — network name shown in the UI
-   - `VITE_RPC_URL` — browser-accessible HTTPS JSON-RPC endpoint
+4. To enable blockchain functionality on Sepolia:
+   - In Alchemy, create a **Sepolia** app and copy its HTTPS Sepolia endpoint. Do not use an endpoint containing `eth-mainnet`.
+   - Create a dedicated test wallet, fund it with Sepolia test ETH, and copy `blockchain/.env.example` to `blockchain/.env`. Fill in `ALCHEMY_SEPOLIA_URL` and `SEPOLIA_DEPLOYER_PRIVATE_KEY`.
+   - From the `blockchain/` directory, run `npm run deploy:sepolia`. The deployer wallet becomes the contract administrator; authorize the university issuer through the admin dashboard.
+   - Never use a wallet that holds real funds. The deployer key stays in the ignored local `.env` file and is not needed by GitHub Actions.
+   - Add these **Actions variables** under **Settings → Secrets and variables → Actions → Variables**:
+     - `VITE_CONTRACT_ADDRESS` — deployed contract address
+     - `VITE_NETWORK_CHAIN_ID` — `11155111`
+     - `VITE_NETWORK_NAME` — `Sepolia`
+     - `VITE_RPC_URL` — browser-accessible HTTPS Sepolia JSON-RPC endpoint
 5. To enable optional Google Drive storage, also add `VITE_GOOGLE_CLIENT_ID`. In the Google OAuth client settings, add the GitHub Pages origin (`https://<github-username>.github.io`) to **Authorized JavaScript origins**.
 
 These values are embedded into the public frontend at build time. Do not put private keys, client secrets,
-or privileged credentials in Actions variables or any `VITE_` variable. Use a public, read-only RPC
-endpoint suitable for browser access; any API key in its URL will be visible to site visitors. Configure
-provider-side origin restrictions and rate limits when available. The frontend source and public-chain
-transactions are not a secure substitute for a production backend.
+or privileged credentials in Actions variables or any `VITE_` variable. The Sepolia RPC URL (including
+its API key) will be visible to site visitors. Restrict its allowed origin to
+`https://muhammadubaidcse.github.io` and set provider quotas/rate limits. Rotate any API key already posted
+in chat or committed to Git. The frontend source and public-chain transactions are not a secure substitute
+for a production backend.
 
 GitHub Pages does not serve the local development chain. Never use Hardhat's well-known test-account
 private keys on a public network.
